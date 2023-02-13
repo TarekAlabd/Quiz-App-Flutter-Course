@@ -10,14 +10,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int counter = 0;
-
-  void incrementCounter() {
-    setState(() {
-      counter++;
-    });
-    debugPrint('Counter: $counter');
-  }
+  List<Map<String, dynamic>> answersForFirstQuestion = [
+    {
+      "title": "Football",
+      "onPressed": () => debugPrint('Football Choice'),
+    },
+    {
+      "title": "Basketball",
+      "onPressed": () => debugPrint('Basketball Choice'),
+    },
+    {
+      "title": "Volleyball",
+      "onPressed": () => debugPrint('Volleyball Choice'),
+    },
+    {
+      "title": "Kickboxing",
+      "onPressed": () => debugPrint('Kickboxing Choice'),
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,38 +49,22 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Football'),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Basketball'),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Volleyball'),
-                ),
-              ),
+            Column(
+              children: answersForFirstQuestion
+                  .map(
+                    (answerMap) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: SizedBox(
+                        height: 40,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: answerMap['onPressed'],
+                          child: Text(answerMap['title']),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ],
         ),
