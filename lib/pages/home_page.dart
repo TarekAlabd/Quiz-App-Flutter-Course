@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     showTotalScore = myTotalScore >= resultedScore;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
       ),
       body: !showTotalScore
           ? Column(

@@ -15,7 +15,7 @@ class TotalScorePart extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Congratulations!',
             style: TextStyle(
               fontSize: 36,
@@ -25,11 +25,11 @@ class TotalScorePart extends StatelessWidget {
           const SizedBox(height: 8.0),
           Text(
             'Your total score is: $myTotalScore',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
           ),
           TextButton(
             onPressed: resetQuizOnPressed,
-            child: Text('Reset Quiz'),
+            child: const Text('Reset Quiz'),
           ),
         ],
       ),
