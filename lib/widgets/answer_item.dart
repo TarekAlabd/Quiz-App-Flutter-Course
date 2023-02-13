@@ -3,7 +3,12 @@ import 'package:flutter_basics/models/answer_item_model.dart';
 
 class AnswerItem extends StatelessWidget {
   final AnswerItemModel answerMap;
-  const AnswerItem({super.key, required this.answerMap});
+  final VoidCallback questionIndexChangeCallback;
+  const AnswerItem({
+    super.key,
+    required this.answerMap,
+    required this.questionIndexChangeCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,10 @@ class AnswerItem extends StatelessWidget {
         height: 40,
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: answerMap.onPressed,
+          onPressed: () {
+            answerMap.onPressed();
+            questionIndexChangeCallback();
+          },
           child: Text(answerMap.title),
         ),
       ),

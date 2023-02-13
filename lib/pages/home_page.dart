@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics/models/answer_item_model.dart';
+import 'package:flutter_basics/models/question_item_model.dart';
 import 'package:flutter_basics/widgets/answer_item.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int questionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,7 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 16, bottom: 16),
             child: Text(
-              'What is your favorite sport?',
+              questions[questionIndex].title,
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.w500,
@@ -29,6 +37,13 @@ class HomePage extends StatelessWidget {
                 .map(
                   (answerMap) => AnswerItem(
                     answerMap: answerMap,
+                    questionIndexChangeCallback: () {
+                      if (questionIndex + 1 < questions.length) {
+                        setState(() {
+                          questionIndex += 1;
+                        });
+                      }
+                    },
                   ),
                 )
                 .toList(),
