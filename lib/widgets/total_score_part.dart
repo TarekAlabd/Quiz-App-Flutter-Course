@@ -29,7 +29,12 @@ class TotalScorePart extends StatelessWidget {
           ),
           TextButton(
             onPressed: resetQuizOnPressed,
-            child: const Text('Reset Quiz'),
+            child: Text(
+              'Reset Quiz',
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.green,
+                  ),
+            ),
           ),
         ],
       ),

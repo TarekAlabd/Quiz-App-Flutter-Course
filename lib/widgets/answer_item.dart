@@ -4,9 +4,12 @@ import 'package:flutter_basics/models/answer_item_model.dart';
 class AnswerItem extends StatelessWidget {
   final AnswerItemModel answerMap;
   final VoidCallback questionIndexChangeCallback;
+  final bool isAnswerChosen;
+
   const AnswerItem({
     super.key,
     required this.answerMap,
+    required this.isAnswerChosen,
     required this.questionIndexChangeCallback,
   });
 
@@ -17,35 +20,37 @@ class AnswerItem extends StatelessWidget {
       child: SizedBox(
         height: 60,
         width: double.infinity,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black12,
+        child: InkWell(
+          onTap: () {
+            answerMap.onPressed();
+            questionIndexChangeCallback();
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black12,
+              ),
+              borderRadius: BorderRadius.circular(8.0),
+              color: isAnswerChosen ? Colors.green : Colors.white,
             ),
-            borderRadius: BorderRadius.circular(8.0),
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.add,
-                  size: 30,
-                ),
-                const SizedBox(width: 16.0),
-                Text(answerMap.title),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.add,
+                    size: 30,
+                    color: isAnswerChosen ? Colors.white : Colors.black,
+                  ),
+                  const SizedBox(width: 16.0),
+                  Text(answerMap.title, style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: isAnswerChosen ? Colors.white : Colors.black,
+                  ),),
+                ],
+              ),
             ),
           ),
         ),
-        // child: ElevatedButton(
-        //   onPressed: () {
-        //     answerMap.onPressed();
-        //     questionIndexChangeCallback();
-        //   },
-        //   child: Text(answerMap.title),
-        // ),
       ),
     );
   }

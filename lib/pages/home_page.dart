@@ -12,8 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int questionIndex = 0;
-  int myTotalScore = 0;
+  int questionIndex = 0, myTotalScore = 0;
+  int answerChosen = -1;
   int resultedScore = questions.length * 10;
   bool showTotalScore = false;
 
@@ -35,31 +35,36 @@ class _HomePageState extends State<HomePage> {
                     QuestionItem(questionItem: questions[questionIndex]),
                     const SizedBox(height: 30),
                     Column(
-                      children: questions[questionIndex]
-                          .availableAnswers
-                          .map(
-                            (answerMap) => AnswerItem(
-                              answerMap: answerMap,
-                              questionIndexChangeCallback: () {
-                                if (questionIndex + 1 < questions.length) {
-                                  setState(() {
-                                    questionIndex += 1;
-                                  });
-                                }
-                                setState(() {
-                                  myTotalScore += 10;
-                                });
-                              },
-                            ),
-                          )
-                          .toList(),
+                      children: List.generate(
+                        questions[questionIndex].availableAnswers.length,
+                        (index) => AnswerItem(
+                          answerMap:
+                              questions[questionIndex].availableAnswers[index],
+                          isAnswerChosen: answerChosen == index,
+                          questionIndexChangeCallback: () {
+                            setState(() {
+                              answerChosen = index;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                     const Spacer(),
                     SizedBox(
                       height: 60,
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (questionIndex + 1 < questions.length) {
+                            setState(() {
+                              questionIndex += 1;
+                            });
+                          }
+                          setState(() {
+                            myTotalScore += 10;
+                            answerChosen = -1;
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
