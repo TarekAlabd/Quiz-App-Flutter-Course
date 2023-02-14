@@ -21,44 +21,67 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     showTotalScore = myTotalScore >= resultedScore;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: !showTotalScore
-          ? Column(
-              children: [
-                QuestionItem(questionItem: questions[questionIndex]),
-                Column(
-                  children: questions[questionIndex]
-                      .availableAnswers
-                      .map(
-                        (answerMap) => AnswerItem(
-                          answerMap: answerMap,
-                          questionIndexChangeCallback: () {
-                            if (questionIndex + 1 < questions.length) {
-                              setState(() {
-                                questionIndex += 1;
-                              });
-                            }
-                            setState(() {
-                              myTotalScore += 10;
-                            });
-                          },
+      // appBar: AppBar(
+      //   title: const Text('Home'),
+      // ),
+      body: SafeArea(
+        child: !showTotalScore
+            ? Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 50),
+                    QuestionItem(questionItem: questions[questionIndex]),
+                    const SizedBox(height: 30),
+                    Column(
+                      children: questions[questionIndex]
+                          .availableAnswers
+                          .map(
+                            (answerMap) => AnswerItem(
+                              answerMap: answerMap,
+                              questionIndexChangeCallback: () {
+                                if (questionIndex + 1 < questions.length) {
+                                  setState(() {
+                                    questionIndex += 1;
+                                  });
+                                }
+                                setState(() {
+                                  myTotalScore += 10;
+                                });
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      height: 60,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
                         ),
-                      )
-                      .toList(),
+                        child: const Text('Next'),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )
-          : TotalScorePart(
-              myTotalScore: myTotalScore,
-              resetQuizOnPressed: () {
-                setState(() {
-                  questionIndex = 0;
-                  myTotalScore = 0;
-                });
-              },
-            ),
+              )
+            : TotalScorePart(
+                myTotalScore: myTotalScore,
+                resetQuizOnPressed: () {
+                  setState(() {
+                    questionIndex = 0;
+                    myTotalScore = 0;
+                  });
+                },
+              ),
+      ),
     );
   }
 }
