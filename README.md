@@ -1,7 +1,8 @@
-# Quiz App
+# Flutter learn
 
-It's a quiz app built with Flutter & Dart in my new course.
+A new flutter project.
 
 ## Getting Started
 
-It will be available soon!
+It will be Update soon..!
+
